@@ -9,36 +9,53 @@ import Col from 'react-bootstrap/Col';
 import cat from './cat5.jpg';
 import data from './data';
 import { useState } from 'react';
+import DtailPage from './pages/detail';
+import {Routes, Route, useNavigate} from 'react-router-dom'
+import DetailPage from './pages/detail';
 
+//라우터는 창을 새로 불러오는 게 아니라 재렌더링 방식을 사용
+//html은 href="" 사용 -> 리액트는 라우터 사용
 function App() {
   let [items, setItems] = useState(data)
   let [photo, setPhoto] = useState(['/monitor.webp', '/mouse.webp', '/keyboard3.webp'])
+  let navigate = useNavigate()
 
   //css를 제공해주는 사이트 : bootstrap
   return (
     <div className="App">
-      <Navbar bg="dark" data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
+              <Navbar bg="dark" data-bs-theme="dark">
+                <Container>
+                  <Navbar.Brand href="#home"><img src='/logo192.png' width={'50px'}/></Navbar.Brand>
+                  <Nav className="me-auto">
+                    <Nav.Link onClick={()=>{navigate('/')}}>홈</Nav.Link>
+                    <Nav.Link onClick={()=>{navigate('/detail')}}>상세페이지</Nav.Link>
+                    <Nav.Link onClick={()=>{navigate('/about')}}>About</Nav.Link>
+                    <Nav.Link onClick={()=>{navigate(-1)}}>뒤로가기</Nav.Link>
+                    <Nav.Link onClick={()=>{navigate(1)}}>앞으로가기</Nav.Link>
+                  </Nav>
+                </Container>
+              </Navbar>
+      <Routes>
+        <Route path='/' element={
+          <>
+          <div className={'main-bg'}></div>
+            <Container>
+              {/* 데이터 갯수와 이미지가 바뀔 수 있으니 useState처리 */}
+              {/* map을 통해서 useState(data)만큼 반복 */}
+              <Row>
+              {items.map((item, idx) => (
+              <ItemColor key={idx} data={item} img={photo[idx]} />
+            ))}
+              </Row>
+            </Container>
+          </>
+        }></Route>
+        <Route path='/detail' element={<DetailPage items={items}/>}></Route>
+      </Routes>
 
-    <div className={'main-bg'}></div>
 
-    <Container>
-      {/* 데이터 갯수와 이미지가 바뀔 수 있으니 useState처리 */}
-      {/* map을 통해서 useState(data)만큼 반복 */}
-      <Row>
-      {items.map((item, idx) => (
-      <ItemColor key={idx} data={item} img={photo[idx]} />
-    ))}
-      </Row>
-    </Container>
+
+
     
     </div>
     
