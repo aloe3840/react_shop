@@ -17,6 +17,12 @@ let data = [
     content:'울트라 키보드',
     price:8000
   },
+  {
+    id:3,
+    title:'로고',
+    content:'로고',
+    price:1000
+  }
 ];
 let num1 = 1;
 let num2 = 2;
