@@ -13,6 +13,7 @@ import DtailPage from './pages/detail';
 import {Routes, Route, useNavigate, Outlet, Link} from 'react-router-dom'
 import DetailPage from './pages/detail';
 import { Button } from 'react-bootstrap';
+import Cart from './pages/cart';
 
 //라우터는 창을 새로 불러오는 게 아니라 재렌더링 방식을 사용
 //html은 href="" 사용 -> 리액트는 라우터 사용
@@ -31,6 +32,7 @@ function App() {
                     <Nav.Link onClick={()=>{navigate('/')}}>홈</Nav.Link>
                     <Nav.Link onClick={()=>{navigate('/detail')}}>상세페이지</Nav.Link>
                     <Nav.Link onClick={()=>{navigate('/about')}}>About</Nav.Link>
+                    <Nav.Link onClick={()=>{navigate('/cart')}}>장바구니</Nav.Link>
                     <Nav.Link onClick={()=>{navigate(-1)}}>뒤로가기</Nav.Link>
                     <Nav.Link onClick={()=>{navigate(1)}}>앞으로가기</Nav.Link>
                   </Nav>
@@ -67,14 +69,14 @@ function App() {
           <Route path='adress' element={<div>주소</div>}></Route>
           <Route path='location' element={<div>위치</div>}></Route>
         </Route>
-        <Route path='/about/member' element={<div>어바웃멤버페이지</div>}></Route>
+        <Route path='/cart' element={<Cart/>}></Route>
         <Route path='*' element={<div>그외의 페이지(404)</div>}></Route> 
         {/* 페이지를 잘못 갔을 때 *로 예외처리 느낌임 */}
       </Routes>
 
       {/* React는 하나의 html을 다시 그리는 방식이기 때문에
       html을 이동하는 <a>태그보단 <Link>를 사용 */}
-      <Link to="/about/adress"><Button variant="success">리액트 부트스트랩 버튼</Button></Link>
+      {/* <Link to="/about/adress"><Button variant="success">리액트 부트스트랩 버튼</Button></Link> */}
     </div>
     
   );
